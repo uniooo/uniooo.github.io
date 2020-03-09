@@ -1,0 +1,5506 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>ccf-eval</title><link href='https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+/* meyer reset -- http://meyerweb.com/eric/tools/css/reset/ , v2.0 | 20110126 | License: none (public domain) */
+
+@include-when-export url(https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+
+/* =========== */
+
+:root {
+	--active-file-bg-color: #dadada;
+	--active-file-bg-color: rgba(32, 43, 51, 0.63);
+	--active-file-text-color: white;
+	--bg-color: #f3f2ee;
+	--text-color: #1f0909;
+	--control-text-color: #444;
+	--rawblock-edit-panel-bd: #e5e5e5;
+
+	--select-text-bg-color: rgba(32, 43, 51, 0.63);
+  --select-text-font-color: white;
+}
+
+pre {
+	--select-text-bg-color: #36284e;
+	--select-text-font-color: #fff;
+}
+
+html {
+	font-size: 16px;
+}
+
+html, body {
+	background-color: #f3f2ee;
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+	color: #1f0909;
+	line-height: 1.5em;
+}
+
+/*#write {
+	overflow-x: auto;
+    max-width: initial;
+	padding-left: calc(50% - 17em);
+    padding-right: calc(50% - 17em);
+}
+
+@media (max-width: 36em) {
+ 	#write {
+ 		padding-left: 1em;
+    	padding-right: 1em;
+ 	}
+}*/
+
+#write {
+	max-width: 40em;
+}
+
+ol li {
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+ul li {
+	list-style-type: disc;
+	list-style-position: outside;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* styles */
+
+/* ====== */
+
+/* headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+}
+h1 {
+	font-size: 1.875em;
+	/*30 / 16*/
+	line-height: 1.6em;
+	/* 48 / 30*/
+	margin-top: 2em;
+}
+h2,
+h3 {
+	font-size: 1.3125em;
+	/*21 / 16*/
+	line-height: 1.15;
+	/*24 / 21*/
+	margin-top: 2.285714em;
+	/*48 / 21*/
+	margin-bottom: 1.15em;
+	/*24 / 21*/
+}
+h3 {
+	font-weight: normal;
+}
+h4 {
+	font-size: 1.125em;
+	/*18 / 16*/
+	margin-top: 2.67em;
+	/*48 / 18*/
+}
+h5,
+h6 {
+	font-size: 1em;
+	/*16*/
+}
+h1 {
+	border-bottom: 1px solid;
+	margin-bottom: 1.875em;
+	padding-bottom: 0.8125em;
+}
+/* links */
+
+a {
+	text-decoration: none;
+	color: #065588;
+}
+a:hover,
+a:active {
+	text-decoration: underline;
+}
+/* block spacing */
+
+p,
+blockquote,
+.md-fences {
+	margin-bottom: 1.5em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 1.5em;
+}
+/* blockquote */
+
+blockquote {
+	font-style: italic;
+	border-left: 5px solid;
+	margin-left: 2em;
+	padding-left: 1em;
+}
+/* lists */
+
+ul,
+ol {
+	margin: 0 0 1.5em 1.5em;
+}
+/* tables */
+.md-meta,.md-before, .md-after {
+	color:#999;
+}
+
+table {
+	margin-bottom: 1.5em;
+	/*24 / 16*/
+	font-size: 1em;
+	/* width: 100%; */
+}
+thead th,
+tfoot th {
+	padding: .25em .25em .25em .4em;
+	text-transform: uppercase;
+}
+th {
+	text-align: left;
+}
+td {
+	vertical-align: top;
+	padding: .25em .25em .25em .4em;
+}
+
+code,
+.md-fences {
+	background-color: #dadada;
+}
+
+code {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.md-fences {
+	margin-left: 2em;
+	margin-bottom: 3em;
+	padding-left: 1ch;
+	padding-right: 1ch;
+}
+
+pre,
+code,
+tt {
+	font-size: .875em;
+	line-height: 1.714285em;
+}
+/* some fixes */
+
+h1 {
+	line-height: 1.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
+}
+
+p + ul,
+p + ol{
+	margin-top: .5em;
+}
+
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol {
+	margin-top: .5em;
+}
+
+li > ul,
+li > ol {
+	margin-top: inherit;
+	margin-bottom: 0;
+}
+
+li ol>li {
+	list-style-type: lower-alpha;
+}
+
+li li ol>li{
+	list-style-type: lower-roman;
+}
+
+h2,
+h3 {
+	margin-bottom: .75em;
+}
+hr {
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: none;
+}
+h1 {
+	border-color: #c5c5c5;
+}
+blockquote {
+	border-color: #bababa;
+	color: #656565;
+}
+
+blockquote ul,
+blockquote ol {
+	margin-left:0;
+}
+
+.ty-table-edit {
+	background-color: transparent;
+}
+thead {
+	background-color: #dadada;
+}
+tr:nth-child(even) {
+	background: #e8e7e7;
+}
+hr {
+	border-color: #c5c5c5;
+}
+.task-list{
+	padding-left: 1rem;
+}
+
+.md-task-list-item {
+	padding-left: 1.5rem;
+	list-style-type: none;
+}
+
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.25rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #F3F2EE;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
+}
+
+#write pre.md-meta-block {
+	min-height: 1.875rem;
+	color: #555;
+	border: 0px;
+	background: transparent;
+	margin-top: -4px;
+	margin-left: 1em;
+	margin-top: 1em;
+}
+
+.md-image>.md-meta {
+	color: #9B5146;
+}
+
+.md-image>.md-meta{
+	font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', serif;
+}
+
+
+#write>h3.md-focus:before{
+	left: -1.5rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h4.md-focus:before{
+	left: -1.5rem;
+	top: .25rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h5.md-focus:before{
+	left: -1.5rem;
+	top: .0.3125rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h6.md-focus:before{
+	left: -1.5rem;
+	top: 0.3125rem;
+	color:#999;
+	border-color:#999;
+}
+
+.md-toc:focus .md-toc-content{
+	margin-top: 19px;
+}
+
+.md-toc-content:empty:before{
+	color: #065588;
+}
+.md-toc-item {
+	color: #065588;
+}
+#write div.md-toc-tooltip {
+	background-color: #f3f2ee;
+}
+
+#typora-sidebar {
+	background-color: #f3f2ee;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+  	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+}
+
+.pin-outline #typora-sidebar {
+	background: inherit;
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+.pin-outline #typora-sidebar:hover .outline-title-wrapper {
+	border-left:1px dashed;
+}
+
+.outline-item:hover {
+  background-color: #dadada;
+  border-left: 28px solid #dadada;
+  border-right: 18px solid #dadada;
+}
+
+.typora-node .outline-item:hover {
+  	border-right: 28px solid #dadada;
+}
+
+.outline-expander:before {
+  content: "\f0da";
+  font-family: FontAwesome;
+  font-size:14px;
+  top: 1px;
+}
+
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  content: "\f0d7";
+}
+
+.modal-content {
+	background-color: #f3f2ee;
+}
+
+.auto-suggest-container ul li {
+	list-style-type: none;
+}
+
+/** UI for electron */
+
+.megamenu-menu,
+#top-titlebar, #top-titlebar *,
+.megamenu-content {
+	background: #f3f2ee;
+	color: #1f0909;
+}
+
+.megamenu-menu-header {
+	border-bottom: 1px dashed #202B33;
+}
+
+.megamenu-menu {
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+header, .context-menu, .megamenu-content, footer {
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+    color: #1f0909;
+}
+
+#megamenu-back-btn {
+	color: #1f0909;
+	border-color: #1f0909;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title:before {
+	color: #1f0909;
+}
+
+.megamenu-menu-list li a:hover, .megamenu-menu-list li a.active {
+	color: inherit;
+	background-color: #e8e7df;
+}
+
+.long-btn:hover {
+	background-color: #e8e7df;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+	background-color: #D2D1D1;
+}
+
+.btn-default {
+	background-color: transparent;
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+.ty-show-word-count #footer-word-count {
+	background: #c7c5c5;
+}
+
+#typora-quick-open {
+    background-color: inherit;
+}
+
+.md-diagram-panel {
+	margin-top: 8px;
+}
+
+.file-list-item-file-name {
+	font-weight: initial;
+}
+
+.file-list-item-summary {
+	opacity: 1;
+}
+
+.file-list-item {
+	color: #777;
+}
+
+.file-list-item.active {
+	background-color: inherit;
+	color: black;
+}
+
+.ty-side-sort-btn.active {
+	background-color: inherit;
+}
+
+.file-list-item.active .file-list-item-file-name  {
+	font-weight: bold;
+}
+
+.file-list-item{
+    opacity:1 !important;
+}
+
+.file-library-node.active>.file-node-background{
+	background-color: rgba(32, 43, 51, 0.63);
+	background-color: var(--active-file-bg-color);
+}
+
+.file-tree-node.active>.file-node-content{
+	color: white;
+	color: var(--active-file-text-color);
+}
+
+.md-task-list-item>input {
+	margin-left: -1.7em;
+	margin-top: calc(1rem - 12px);
+}
+
+input {
+	border: 1px solid #aaa;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title,
+.megamenu-menu-header:hover, 
+.megamenu-menu-header:focus {
+	color: inherit;
+}
+
+.dropdown-menu .divider {
+	border-color: #e5e5e5;
+}
+
+/* https://github.com/typora/typora-issues/issues/2046 */
+.os-windows-7 strong,
+.os-windows-7 strong  {
+	font-weight: 760;
+}
+
+.ty-preferences .btn-default {
+	background: transparent;
+}
+
+.ty-preferences .window-header {
+	border-bottom: 1px dashed #202B33;
+	box-shadow: none;
+}
+
+#sidebar-loading-template, #sidebar-loading-template.file-list-item {
+	color: #777;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><h1><a name="中国计算机学会推荐国际学术会议和期刊目录2019-年）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议和期刊目录（2019 年）</span></h1><p><span>From 中国计算机学会 CCF</span></p><h2><a name="计算机体系结构并行与分布计算存储系统" class="md-header-anchor"></a><span>计算机体系结构/并行与分布计算/存储系统</span></h2><h3><a name="中国计算机学会推荐国际学术期刊计算机体系结构并行与分布计算存储系统）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（计算机体系结构/并行与分布计算/存储系统）</span></h3><h4><a name="a-类" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOCS</td>
+		<td>ACM Transactions on Computer Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tocs/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TOS</td>
+		<td>ACM Transactions on Storage</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tos/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TCAD</td>
+		<td>IEEE Transactions on Computer-Aided Design of Integrated Circuits And System</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcad/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>TC</td>
+		<td>IEEE Transactions on Computers</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tc/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>TPDS</td>
+		<td>IEEE Transactions on Parallel and Distributed Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tpds/</td>
+	</tr>
+</tbody></table><h4><a name="b-类" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TACO</td>
+		<td>ACM Transactions on Architecture and Code Optimization</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/taco/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TAAS</td>
+		<td>ACM Transactions on Autonomous and Adaptive Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/taas/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TODAES</td>
+		<td>ACM Transactions on Design Automation of Electronic Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/todaes/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>TECS</td>
+		<td>ACM Transactions on Embedded Computing Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tecs/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>TRETS</td>
+		<td>ACM Transactions on Reconfigurable Technology and Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/trets/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>TVLSI</td>
+		<td>IEEE Transactions on Very Large Scale Integration (VLSI) Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tvlsi/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>JPDC</td>
+		<td>Journal of Parallel and Distributed Computing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jpdc/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>JSA</td>
+		<td>Journal of Systems Architecture: Embedded Software Design</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jsa/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>PARCO</td>
+		<td>Parallel Computing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/conf/parco/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td></td>
+		<td>Performance Evaluation: An International Journal</td>
+		<td>Elsevier</td>
+		<td>http://www.journals.elsevier.com/performance-evaluation/</td>
+	</tr>
+</tbody></table><h4><a name="c-类" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>JETC</td>
+		<td>ACM Journal on Emerging Technologies in Computing Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/jetc/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td></td>
+		<td>Concurrency and Computation: Practice and Experience</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/concurrency/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>DC</td>
+		<td>Distributed Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/dc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>FGCS</td>
+		<td>Future Generation Computer Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/fgcs/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>TCC</td>
+		<td>IEEE Transactions on Cloud Computing</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/journals/tcc/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>Integration</td>
+		<td>Integration, the VLSI Journal</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/integration/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>JETTA</td>
+		<td>Journal of Electronic Testing-Theory and Applications</td>
+		<td>Springer</td>
+		<td>http://link.springer.com/journal/10836</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>JGC</td>
+		<td>Journal of Grid computing</td>
+		<td>Springer</td>
+		<td>https://dblp.uni-trier.de/db/journals/grid/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>MICPRO</td>
+		<td>Microprocessors and Microsystems: Embedded Hardware Design</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/mam/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>RTS</td>
+		<td>Real-Time Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/rts/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>TJSC</td>
+		<td>The Journal of Supercomputing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/tjs/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议计算机体系结构并行与分布计算存储系统）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（计算机体系结构/并行与分布计算/存储系统）</span></h3><h4><a name="a-类-n2136" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>PPoPP</td>
+		<td>ACM SIGPLAN Symposium on Principles &amp; Practice of Parallel Programming</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ppopp/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>FAST</td>
+		<td>Conference on File and Storage Technologies</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/fast/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>DAC</td>
+		<td>Design Automation Conference</td>
+		<td>ACM</td>
+		<td>https://dblp.uni-trier.de/db/conf/dac/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>HPCA</td>
+		<td>High Performance Computer Architecture</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/hpca/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>MICRO</td>
+		<td>IEEE/ACM International Symposium on Microarchitecture</td>
+		<td>IEEE/ACM</td>
+		<td>https://dblp.uni-trier.de/db/conf/micro/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>SC</td>
+		<td>International Conference for High Performance Computing, Networking, Storage, and Analysis</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/sc/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ASPLOS</td>
+		<td>International Conference on Architectural Support for Programming Languages and Operating Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/asplos/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ISCA</td>
+		<td>International Symposium on Computer Architecture</td>
+		<td>ACM /IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/isca/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>USENIX ATC</td>
+		<td>USENIX Annul Technical Conference</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/usenix/index.html</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2139" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>SoCC</td>
+		<td>ACM Symposium on Cloud Computing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cloud/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SPAA</td>
+		<td>ACM Symposium on Parallelism in Algorithms and Architectures</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/spaa/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>PODC</td>
+		<td>ACM Symposium on Principles of Distributed Computing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/podc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>FPGA</td>
+		<td>ACM/SIGDA International Symposium on Field-Programmable Gate Arrays</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/fpga/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CGO</td>
+		<td>Code Generation and Optimization</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cgo/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>DATE</td>
+		<td>Design, Automation &amp; Test in Europe</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/date/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>EuroSys</td>
+		<td>European Conference on Computer Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/eurosys/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>HOT CHIPS</td>
+		<td>Hot Chips: A Symposium on High Performance Chips</td>
+		<td>IEEE</td>
+		<td>http://www.hotchips.org/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>CLUSTER</td>
+		<td>IEEE International Conference on Cluster Computing</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/cluster/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>ICCD</td>
+		<td>International Conference on Computer Design</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iccd/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>ICCAD</td>
+		<td>International Conference on Computer-Aided Design</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/iccad/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>ICDCS</td>
+		<td>International Conference on Distributed Computing Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icdcs/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>CODES+ISSS</td>
+		<td>International Conference on Hardware/Software Co-design and System Synthesis</td>
+		<td>ACM/ IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/codes/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>HiPEAC</td>
+		<td>International Conference on High Performance and Embedded Architectures and Compilers</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/hipeac/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>15</td>
+		<td>SIGMETRICS</td>
+		<td>International Conference on Measurement and Modeling of Computer Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sigmetrics/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>PACT</td>
+		<td>International Conference on Parallel Architectures and Compilation Techniques</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/IEEEpact/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>ICPP</td>
+		<td>International Conference on Parallel Processing</td>
+		<td></td>
+		<td>http://dblp.uni-trier.de/db/conf/icpp/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>ICS</td>
+		<td>International Conference on Supercomputing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ics/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>VEE</td>
+		<td>International Conference on Virtual Execution Environments</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/vee/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>IPDPS</td>
+		<td>International Parallel &amp; Distributed Processing Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ipps/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>Performance</td>
+		<td>International Symposium on Computer Performance Modeling, Measurements and Evaluation</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/performance/</td>
+	</tr>
+	<tr align="center">
+		<td>22</td>
+		<td>HPDC</td>
+		<td>International Symposium on High Performance Distributed Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/hpdc/</td>
+	</tr>
+	<tr align="center">
+		<td>23</td>
+		<td>ITC</td>
+		<td>International Test Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/itc/</td>
+	</tr>
+	<tr align="center">
+		<td>24</td>
+		<td>LISA</td>
+		<td>Large Installation System Administration Conference</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/lisa/</td>
+	</tr>
+	<tr align="center">
+		<td>25</td>
+		<td>MSST</td>
+		<td>Mass Storage Systems and Technologies</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/mss/</td>
+	</tr>
+	<tr align="center">
+		<td>26</td>
+		<td>RTAS</td>
+		<td>Real-Time and Embedded Technology and Applications Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/rtas/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2144" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CF</td>
+		<td>ACM International Conference on Computing Frontiers</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cf</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SYSTOR</td>
+		<td>ACM International Systems and Storage Conference</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/systor/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>NOCS</td>
+		<td>ACM/IEEE International Symposium on Networks-on-Chip</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/nocs</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>ASAP</td>
+		<td>Application-Specific Systems, Architectures, and Processors</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/asap</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ASP-DAC</td>
+		<td>Asia and South Pacific Design Automation Conference</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/aspdac</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>Euro-Par</td>
+		<td>European Conference on Parallel and Distributed Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/europar/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ETS</td>
+		<td>European Test Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ets/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>FPL</td>
+		<td>Field Programmable Logic and Applications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/fpl/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>FCCM</td>
+		<td>Field-Programmable Custom Computing Machines</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/fccm/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>GLSVLSI</td>
+		<td>Great Lakes Symposium on VLSI</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/glvlsi/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>ATS</td>
+		<td>IEEE Asian Test Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ats/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>HPCC</td>
+		<td>IEEE International Conference on High Performance Computing and Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/hpcc/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>HiPC</td>
+		<td>IEEE International Conference on High Performance Computing, Data and Analytics</td>
+		<td>IEEE/ ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/hipc/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>MASCOTS</td>
+		<td>IEEE International Symposium on Modeling, Analysis, and Simulation of Computer and Telecommunication Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/mascots/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>15</td>
+		<td>ISPA</td>
+		<td>IEEE International Symposium on Parallel and Distributed Processing with Applications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ispa/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>CCGRID</td>
+		<td>IEEE/ACM International Symposium on Cluster, Cloud and Grid Computing</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ccgrid/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>NPC</td>
+		<td>IFIP International Conference on Network and Parallel Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/npc/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>ICA3PP</td>
+		<td>International Conference on Algorithms and Architectures for Parallel Processing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ica3pp/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>CASES</td>
+		<td>International Conference on Compilers, Architectures, and Synthesis for Embedded Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cases/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>FPT</td>
+		<td>International Conference on Field-Programmable Technology</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/fpt/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>ICPADS</td>
+		<td>International Conference on Parallel and Distributed Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icpads/</td>
+	</tr>
+	<tr align="center">
+		<td>22</td>
+		<td>ISCAS</td>
+		<td>International Symposium on Circuits and Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iscas/</td>
+	</tr>
+	<tr align="center">
+		<td>23</td>
+		<td>ISLPED</td>
+		<td>International Symposium on Low Power Electronics and Design</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/islped/</td>
+	</tr>
+	<tr align="center">
+		<td>24</td>
+		<td>ISPD</td>
+		<td>International Symposium on Physical Design</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ispd/</td>
+	</tr>
+	<tr align="center">
+		<td>25</td>
+		<td>HotI</td>
+		<td>Symposium on High-Performance Interconnects</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/hoti/</td>
+	</tr>
+	<tr align="center">
+		<td>26</td>
+		<td>VTS</td>
+		<td>VLSI Test Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/vts/</td>
+	</tr>
+</tbody></table><h2><a name="计算机网络" class="md-header-anchor"></a><span>计算机网络</span></h2><h3><a name="中国计算机学会推荐国际学术期刊计算机网络）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（计算机网络）</span></h3><h4><a name="a-类-n2151" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>JSAC</td>
+		<td>IEEE Journal of Selected Areas in Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/jsac/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TMC</td>
+		<td>IEEE Transactions on Mobile Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tmc/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TON</td>
+		<td>IEEE/ACM Transactions on Networking</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/ton/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2154" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOIT</td>
+		<td>ACM Transactions on Internet Technology</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/toit/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TOMCCAP</td>
+		<td>ACM Transactions on Multimedia Computing, Communications and Applications</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tomccap/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TOSN</td>
+		<td>ACM Transactions on Sensor Networks</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tosn/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>CN</td>
+		<td>Computer Networks</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cn/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>TCOM</td>
+		<td>IEEE Transactions on Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcom/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>TWC</td>
+		<td>IEEE Transactions on Wireless Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/twc/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2157" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td></td>
+		<td>Ad Hoc Networks</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/adhoc/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CC</td>
+		<td>Computer Communications</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/comcom/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TNSM</td>
+		<td>IEEE Transactions on Network and Service Management</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tnsm/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td></td>
+		<td>IET Communications</td>
+		<td>IET</td>
+		<td>http://dblp.uni-trier.de/db/journals/iet-com/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>JNCA</td>
+		<td>Journal of Network and Computer Applications</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jnca/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>MONET</td>
+		<td>Mobile Networks &amp; Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/monet/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>Networks</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/networks/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>PPNA</td>
+		<td>Peer-to-Peer Networking and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ppna/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>WCMC</td>
+		<td>Wireless Communications &amp; Mobile Computing</td>
+		<td>Wiley.</td>
+		<td>http://dblp.uni-trier.de/db/journals/wicomm/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td></td>
+		<td>Wireless Networks</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/winet/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议计算机网络）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（计算机网络）</span></h3><h4><a name="a-类-n2161" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>SIGCOMM</td>
+		<td>ACM International Conference on Applications, Technologies, Architectures, and Protocols for Computer Communication</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sigcomm/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>MobiCom</td>
+		<td>ACM International Conference on Mobile Computing and Networking</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mobicom/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>INFOCOM</td>
+		<td>IEEE International Conference on Computer Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/infocom/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>NSDI</td>
+		<td>Symposium on Network System Design and Implementation</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/nsdi/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2164" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>SenSys</td>
+		<td>ACM Conference on Embedded Networked Sensor Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sensys/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CoNEXT</td>
+		<td>ACM International Conference on Emerging Networking Experiments and Technologies</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/conext/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>SECON</td>
+		<td>IEEE Communications Society Conference on Sensor and Ad Hoc Communications and Networks</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/secon/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IPSN</td>
+		<td>International Conference on Information Processing in Sensor Networks</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ipsn/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>MobiSys</td>
+		<td>International Conference on Mobile Systems, Applications, and Services</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mobisys/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICNP</td>
+		<td>International Conference on Network Protocols</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icnp/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>MobiHoc</td>
+		<td>International Symposium on Mobile Ad Hoc Networking and Computing</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/mobihoc/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>NOSSDAV</td>
+		<td>International Workshop on Network and Operating System Support for Digital Audio and Video</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/nossdav/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>IWQoS</td>
+		<td>International Workshop on Quality of Service</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iwqos/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>IMC</td>
+		<td>Internet Measurement Conference</td>
+		<td>ACM/USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/imc/</td>
+	</tr>
+</tbody></table><p>&nbsp;</p><h4><a name="c-类-n2167" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ANCS</td>
+		<td>Architectures for Networking and Communications Systems</td>
+		<td>ACM/IEE E</td>
+		<td>http://dblp.uni-trier.de/db/conf/ancs/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>APNOMS</td>
+		<td>Asia-Pacific Network Operations and Management Symposium</td>
+		<td>IFIP/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/apnoms/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>FORTE</td>
+		<td>Formal Techniques for Networked and Distributed Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/forte/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>LCN</td>
+		<td>IEEE Conference on Local Computer Networks</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/lcn/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>GLOBECO M</td>
+		<td>IEEE Global Communications Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/globecom/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICC</td>
+		<td>IEEE International Conference on Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icc/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ICCCN</td>
+		<td>IEEE International Conference on Computer Communications and Networks</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icccn/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>MASS</td>
+		<td>IEEE International Conference on Mobile Ad-hoc and Sensor Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/mass/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>P2P</td>
+		<td>IEEE International Conference on Peer-to-Peer Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/p2p/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>IPCCC</td>
+		<td>IEEE International Performance Computing and Communications Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ipccc/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>WoWMoM</td>
+		<td>IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/wowmom/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>ISCC</td>
+		<td>IEEE Symposium on Computers and Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iscc/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>WCNC</td>
+		<td>IEEE Wireless Communications &amp; Networking Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/wcnc/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>14</td>
+		<td>Networking</td>
+		<td>IFIP International Conferences on Networking</td>
+		<td>IFIP</td>
+		<td>http://dblp.uni- trier.de/db/conf/networking/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td>IM</td>
+		<td>IFIP/IEEE International Symposium on Integrated Network Management</td>
+		<td>IFIP/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/im/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>MSN</td>
+		<td>International Conference on Mobile Ad-hoc and Sensor Networks</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/msn/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>MSWiM</td>
+		<td>International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mswim/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>WASA</td>
+		<td>International Conference on Wireless Algorithms, Systems, and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/wasa/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>HotNets</td>
+		<td>The Workshop on Hot Topics in Networks</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/hotnets/</td>
+	</tr>
+</tbody></table><h2><a name="网络与信息安全" class="md-header-anchor"></a><span>网络与信息安全</span></h2><h3><a name="中国计算机学会推荐国际学术期刊网络与信息安全）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（网络与信息安全）</span></h3><h4><a name="a-类-n2174" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TDSC</td>
+		<td>IEEE Transactions on Dependable and Secure Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tdsc/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TIFS</td>
+		<td>IEEE Transactions on Information Forensics and Security</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tifs/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td></td>
+		<td>Journal of Cryptology</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/joc/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2177" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOPS</td>
+		<td>ACM Transactions on Privacy and Security</td>
+		<td>ACM</td>
+		<td>https://tops.acm.org/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td></td>
+		<td>Computers &amp; Security</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/compsec/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td></td>
+		<td>Designs, Codes and Cryptography</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/dcc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>JCS</td>
+		<td>Journal of Computer Security</td>
+		<td>IOS Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/jcs/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2180" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CLSR</td>
+		<td>Computer Law and Security Review</td>
+		<td>Elsevier</td>
+		<td>http://www.journals.elsevier.com/computer-law-and- security-review/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td> </td>
+		<td>EURASIP Journal on Information Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ejisec/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td> </td>
+		<td>IET Information Security</td>
+		<td>IET</td>
+		<td>http://dblp.uni-trier.de/db/journals/iet-ifs/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IMCS</td>
+		<td>Information Management &amp; Computer Security</td>
+		<td>Emerald</td>
+		<td>http://dblp.uni-trier.de/db/journals/imcs/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>IJICS</td>
+		<td>International Journal of Information and Computer Security</td>
+		<td>Inderscience</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijics/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>IJISP</td>
+		<td>International Journal of Information Security and Privacy</td>
+		<td>Idea Group Inc</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijisp/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>JISA</td>
+		<td>Journal of Information Security and Application</td>
+		<td>Elsevier</td>
+		<td>https://dblp.uni-trier.de/db/journals/istr/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>SCN</td>
+		<td>Security and Communication Networks</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/scn/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议网络与信息安全）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（网络与信息安全）</span></h3><h4><a name="a-类-n2184" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CCS</td>
+		<td>ACM Conference on Computer and Communications Security</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ccs/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>EUROCRYPT</td>
+		<td>European Cryptology Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/eurocrypt/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>S&amp;P</td>
+		<td>IEEE Symposium on Security and Privacy</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/sp/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>CRYPTO</td>
+		<td>International Cryptology Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/crypto/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>USENIX Security</td>
+		<td>Usenix Security Symposium</td>
+		<td>USENIX Association</td>
+		<td>http://dblp.uni-trier.de/db/conf/uss/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2187" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ACSAC</td>
+		<td>Annual Computer Security Applications Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/acsac/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ASIACRYPT</td>
+		<td>Annual International Conference on the Theory and Application of Cryptology and Information Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/asiacrypt/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ESORICS</td>
+		<td>European Symposium on Research in Computer Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/esorics/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>FSE</td>
+		<td>Fast Software Encryption</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/fse/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CSFW</td>
+		<td>IEEE Computer Security Foundations Workshop</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/csfw/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>SRDS</td>
+		<td>IEEE International Symposium on Reliable Distributed Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/srds/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>CHES</td>
+		<td>International Conference on Cryptographic Hardware and Embedded Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ches/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>DSN</td>
+		<td>International Conference on Dependable Systems and Networks</td>
+		<td>IEEE/IFIP</td>
+		<td>http://dblp.uni-trier.de/db/conf/dsn/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>RAID</td>
+		<td>International Symposium on Recent Advances in Intrusion Detection</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/raid/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>PKC</td>
+		<td>International Workshop on Practice and Theory in Public Key Cryptography</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pkc/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>NDSS</td>
+		<td>ISOC Network and Distributed System Security Symposium</td>
+		<td>ISOC</td>
+		<td>http://dblp.uni-trier.de/db/conf/ndss/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>TCC</td>
+		<td>Theory of Cryptography Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/tcc/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2190" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>WiSec</td>
+		<td>ACM Conference on Security and Privacy in Wireless and Mobile Networks</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/wisec/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SACMAT</td>
+		<td>ACM Symposium on Access Control Models and Technologies</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sacmat/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>DRM</td>
+		<td>ACM Workshop on Digital Rights Management</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/drm/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IH&amp;MMSec</td>
+		<td>Security ACM Workshop on Information Hiding and Multimedia</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ih/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ACNS</td>
+		<td>Applied Cryptography and Network Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/acns/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>AsiaCCS</td>
+		<td>Asia Conference on Computer and Communications Security</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ccs/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ACISP</td>
+		<td>Australasia Conference on Information Security and Privacy</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/acisp/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>CT-RSA</td>
+		<td>Cryptographer's Track at RSA Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ctrsa/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>DIMVA</td>
+		<td>Detection of Intrusions and Malware &amp; Vulnerability Assessment</td>
+		<td></td>
+		<td>http://dblp.uni-trier.de/db/conf/dimva/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>DFRWS</td>
+		<td>Digital Forensic Research Workshop</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/conf/dfrws/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>FC</td>
+		<td>Financial Cryptography and Data Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/fc/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>TrustCom</td>
+		<td>IEEE International Conference on Trust, Security and Privacy in Computing and Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/trustcom/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>13</td>
+		<td>SEC</td>
+		<td>IFIP International Information Security Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/sec/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>IFIP WG 11.9</td>
+		<td>IFIP WG 11.9 International Conference on Digital Forensics</td>
+		<td>Springer</td>
+		<td>*http://www.ifip119.org/Conferences/</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td>ISC</td>
+		<td>Information Security Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/isw/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>ICDF2C</td>
+		<td>International Conference on Digital Forensics &amp; Cyber Crime</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icdf2c/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>ICICS</td>
+		<td>International Conference on Information and Communications Security</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icics/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>SecureComm</td>
+		<td>International Conference on Security and Privacy in Communication Networks</td>
+		<td>ACM</td>
+		<td>http://dblp.uni- trier.de/db/conf/securecomm/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>NSPW</td>
+		<td>New Security Paradigms Workshop</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/nspw/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>PAM</td>
+		<td>Passive and Active Measurement Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pam/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>PETS</td>
+		<td>Privacy Enhancing Technologies Symposium</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pet/</td>
+	</tr>
+	<tr align="center">
+		<td>22</td>
+		<td>SAC</td>
+		<td>Selected Areas in Cryptography</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/sacrypt/</td>
+	</tr>
+	<tr align="center">
+		<td>23</td>
+		<td>SOUPS</td>
+		<td>Symposium On Usable Privacy and Security</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/soups/</td>
+	</tr>
+	<tr align="center">
+		<td>24</td>
+		<td>HotSec</td>
+		<td>USENIX Workshop on Hot Topics in Security</td>
+		<td>USENIX</td>
+		<td>*http://www.usenix.org/events/</td>
+	</tr>
+</tbody></table><h2><a name="软件工程系统软件程序设计语言" class="md-header-anchor"></a><span>软件工程/系统软件/程序设计语言</span></h2><h3><a name="中国计算机学会推荐国际学术期刊软件工程系统软件程序设计语言）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（软件工程/系统软件/程序设计语言）</span></h3><h4><a name="a-类-n2197" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOPLAS</td>
+		<td>ACM Transactions on Programming Languages &amp; Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/toplas/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TOSEM</td>
+		<td>ACM Transactions on Software Engineering and Methodology</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tosem/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TSE</td>
+		<td>IEEE Transactions on Software Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tse/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2200" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ASE</td>
+		<td>Automated Software Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ase/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ESE</td>
+		<td>Empirical Software Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ese/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TSC</td>
+		<td>IEEE Transactions on Service Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tsc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IETS</td>
+		<td>IET Software</td>
+		<td>IET</td>
+		<td>https://dblp.uni-trier.de/db/journals/iet-sen/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>IST</td>
+		<td>Information and Software Technology</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/infsof/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>JFP</td>
+		<td>Journal of Functional Programming</td>
+		<td>Cambridge University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/jfp/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>Journal of Software: Evolution and Process</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/smr/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>JSS</td>
+		<td>Journal of Systems and Software</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jss/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>RE</td>
+		<td>Requirements Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/re/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>SCP</td>
+		<td>Science of Computer Programming</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/scp/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>SoSyM</td>
+		<td>Software and System Modeling</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/sosym/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>STVR</td>
+		<td>Software Testing, Verification and Reliability</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/stvr/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>SPE</td>
+		<td>Software: Practice and Experience</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/spe/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2203" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CL</td>
+		<td>Computer Languages, Systems and Structures</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cl/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>IJSEKE</td>
+		<td>International Journal on Software Engineering and Knowledge Engineering</td>
+		<td>World Scientific</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijseke/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>STTT</td>
+		<td>International Journal on Software Tools for Technology Transfer</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/sttt/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>JLAP</td>
+		<td>Journal of Logic and Algebraic Programming</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jlp/jlap.html</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>JWE</td>
+		<td>Journal of Web Engineering</td>
+		<td>Rinton Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/jwe/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>SOCA</td>
+		<td>Service Oriented Computing and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/soca/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>SQJ</td>
+		<td>Software Quality Journal</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/sqj/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>TPLP</td>
+		<td>Theory and Practice of Logic Programming</td>
+		<td>Cambridge University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/tplp/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议软件工程系统软件程序设计语言）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（软件工程/系统软件/程序设计语言）</span></h3><h4><a name="a-类-n2207" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>PLDI</td>
+		<td>ACM SIGPLAN Conference on Programming Language Design &amp; Implementation</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/pldi/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>POPL</td>
+		<td>ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/popl/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>FSE/ESEC</td>
+		<td>ACM SIGSOFT Symposium on the Foundation of Software Engineering/ European Software Engineering Conference</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sigsoft/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>SOSP</td>
+		<td>ACM Symposium on Operating Systems Principles</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sosp/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>OOPSLA</td>
+		<td>Conference on Object-Oriented Programming Systems, Languages, and Applications</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/oopsla/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ASE</td>
+		<td>International Conference on Automated Software Engineering</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/kbse/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ICSE</td>
+		<td>International Conference on Software Engineering</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icse/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ISSTA</td>
+		<td>International Symposium on Software Testing and Analysis</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/issta/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>OSDI</td>
+		<td>USENIX Symposium on Operating Systems Design and Implementations</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/osdi/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2210" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ECOOP</td>
+		<td>European Conference on Object-Oriented Programming</td>
+		<td>AITO</td>
+		<td>http://dblp.uni-trier.de/db/conf/ecoop/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ETAPS</td>
+		<td>European Joint Conferences on Theory and Practice of Software</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/etaps/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ICPC</td>
+		<td>IEEE International Conference on Program Comprehension</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iwpc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>RE</td>
+		<td>IEEE International Requirement Engineering Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/re/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CAiSE</td>
+		<td>International Conference on Advanced Information Systems Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/caise/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICFP</td>
+		<td>International Conference on Function Programming</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/icfp/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>LCTES</td>
+		<td>International Conference on Languages, Compilers and Tools for Embedded Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/lctrts/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>MoDELS</td>
+		<td>International Conference on Model Driven Engineering Languages and Systems</td>
+		<td>ACM, IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/models/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>CP</td>
+		<td>International Conference on Principles and Practice of Constraint Programming</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/cp/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>ICSOC</td>
+		<td>International Conference on Service Oriented Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icsoc/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>11</td>
+		<td>SANER</td>
+		<td>International Conference on Software Analysis, Evolution, and Reengineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/wcre/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>ICSME</td>
+		<td>International Conference on Software Maintenance and Evolution</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icsm/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>VMCAI</td>
+		<td>International Conference on Verification, Model Checking, and Abstract Interpretation</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/vmcai/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>ICWS</td>
+		<td>International Conference on Web Services  （Research Track）</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icws/</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td>Middleware</td>
+		<td>International Middleware Conference</td>
+		<td>ACM/IFIP/ USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/middleware/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>SAS</td>
+		<td>International Static Analysis Symposium</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/sas/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>ESEM</td>
+		<td>International Symposium on Empirical Software Engineering and Measurement</td>
+		<td>ACM/IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/esem/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>FM</td>
+		<td>International Symposium on Formal Methods</td>
+		<td>FME</td>
+		<td>http://dblp.uni-trier.de/db/conf/fm/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>ISSRE</td>
+		<td>International Symposium on Software Reliability Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/issre/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>HotOS</td>
+		<td>USENIX Workshop on Hot Topics in Operating Systems</td>
+		<td>USENIX</td>
+		<td>http://dblp.uni-trier.de/db/conf/hotos/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2215" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>PEPM</td>
+		<td>ACM SIGPLAN Workshop on Partial Evaluation and Program Manipulation</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/pepm/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>PASTE</td>
+		<td>ACMSIGPLAN-SIGSOFT Workshop on Program Analysis for Software Tools and Engineering</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/paste/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>APLAS</td>
+		<td>Asian Symposium on Programming Languages and Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/aplas/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>APSEC</td>
+		<td>Asia-Pacific Software Engineering Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/apsec/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>EASE</td>
+		<td>Evaluation and Assessment in Software Engineering</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ease/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICECCS</td>
+		<td>IEEE International Conference on Engineering of Complex Computer Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iceccs/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ICST</td>
+		<td>IEEE International Conference on Software Testing, Verification and Validation</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icst/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ISPASS</td>
+		<td>IEEE International Symposium on Performance Analysis of Systems and Software</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ispass/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>SCAM</td>
+		<td>IEEE International Working Conference on Source Code Analysis and Manipulation</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/scam/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>COMPSAC</td>
+		<td>International Computer Software and Applications Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/compsac/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>11</td>
+		<td>ICFEM</td>
+		<td>International Conference on Formal Engineering Methods</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icfem/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>TOOLS</td>
+		<td>International Conference on Objects, Models, Components, Patterns</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/tools/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>SCC</td>
+		<td>International Conference on Service Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/IEEEscc/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>ICSSP</td>
+		<td>International Conference on Software and System Process</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ispw/</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td>SEKE</td>
+		<td>International Conference on Software Engineering and Knowledge Engineering</td>
+		<td>KSI</td>
+		<td>http://dblp.uni-trier.de/db/conf/seke/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>QRS</td>
+		<td>International Conference on Software Quality, Reliability and Security</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/qrs/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>ICSR</td>
+		<td>International Conference on Software Reuse</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icsr/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>ICWE</td>
+		<td>International Conference on Web Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icwe/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>SPIN</td>
+		<td>International SPIN Workshop on Model Checking Software</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/spin/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>ATVA</td>
+		<td>International Symposium on Automated Technology for Verification and Analysis</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/atva/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>LOPSTR</td>
+		<td>International Symposium on Logic-based Program Synthesis and Transformation</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/lopstr/</td>
+	</tr>
+	<tr align="center">
+		<td>22</td>
+		<td>TASE</td>
+		<td>International Symposium on Theoretical Aspects of Software Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/tase/</td>
+	</tr>
+	<tr align="center">
+		<td>23</td>
+		<td>MSR</td>
+		<td>Mining Software Repositories</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/msr/</td>
+	</tr>
+	<tr align="center">
+		<td>24</td>
+		<td>REFSQ</td>
+		<td>Requirements Engineering: Foundation for Software Quality</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/refsq/</td>
+	</tr>
+	<tr align="center">
+		<td>25</td>
+		<td>WICSA</td>
+		<td>Working IEEE/IFIP Conference on Software Architecture</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/wicsa/</td>
+	</tr>
+</tbody></table><h2><a name="数据库数据挖掘内容检索" class="md-header-anchor"></a><span>数据库/数据挖掘/内容检索</span></h2><h3><a name="中国计算机学会推荐国际学术期刊数据库数据挖掘内容检索" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊(数据库/数据挖掘/内容检索)</span></h3><h4><a name="a-类-n2222" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TODS</td>
+		<td>ACM Transactions on Database Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tods/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TOIS</td>
+		<td>ACM Transactions on Information Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tois/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TKDE</td>
+		<td>IEEE Transactions on Knowledge and Data Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tkde/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>VLDBJ</td>
+		<td>The VLDB Journal</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/vldb/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2225" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TKDD</td>
+		<td>ACM Transactions on Knowledge Discovery from Data</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tkdd/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TWEB</td>
+		<td>ACM Transactions on the Web</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tweb/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>AEI</td>
+		<td>Advanced Engineering Informatics</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/aei/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>DKE</td>
+		<td>Data and Knowledge Engineering</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/dke/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>DMKD</td>
+		<td>Data Mining and Knowledge Discovery</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/datamine/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>EJIS</td>
+		<td>European Journal of Information Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ejis/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>GeoInformatica</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/geoinformatica/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>IPM</td>
+		<td>Information Processing and Management</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ipm/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td></td>
+		<td>Information Sciences</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/isci/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>IS</td>
+		<td>Information Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/is/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>JASIST</td>
+		<td>Journal of the American Society for Information Science and Technology</td>
+		<td>American Society for Technology Information Science and</td>
+		<td>http://dblp.uni-trier.de/db/journals/jasis/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>JWS</td>
+		<td>Journal of Web Semantics</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ws/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>KAIS</td>
+		<td>Knowledge and Information Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/kais/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2228" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>DPD</td>
+		<td>Distributed and Parallel Databases</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/dpd/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>I&amp;M</td>
+		<td>Information and Management</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/iam/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>IPL</td>
+		<td>Information Processing Letters</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ipl/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IR</td>
+		<td>Information Retrieval Journal</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ir/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>IJCIS</td>
+		<td>International Journal of Cooperative Information Systems</td>
+		<td>World Scientific</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijcis/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>IJGIS</td>
+		<td>International Journal of Geographical Information Science</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/gis/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>IJIS</td>
+		<td>International Journal of Intelligent Systems</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijis/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>IJKM</td>
+		<td>International Journal of Knowledge Management</td>
+		<td>IGI</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijkm/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>IJSWIS</td>
+		<td>Systems International Journal on Semantic Web and Information</td>
+		<td>IGI</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijswis/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>JCIS</td>
+		<td>Journal of Computer Information Systems</td>
+		<td>IACIS</td>
+		<td>http://dblp.uni-trier.de/db/journals/jcis/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>JDM</td>
+		<td>Journal of Database Management</td>
+		<td>IGI-Global</td>
+		<td>http://dblp.uni-trier.de/db/journals/jdm/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>JGITM</td>
+		<td>Journal of Global Information Technology Management</td>
+		<td>Ivy League Publishing</td>
+		<td>http://www.tandfonline.com/loi/ugit20#.Vnv35pN97rI</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>JIIS</td>
+		<td>Journal of Intelligent Information Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/jiis/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>JSIS</td>
+		<td>Journal of Strategic Information Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jsis/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议数据库数据挖掘内容检索" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议(数据库／数据挖掘／内容检索)</span></h3><h4><a name="a-类-n2232" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>SIGMOD</td>
+		<td>ACM Conference on Management of Data</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sigmod/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SIGKDD</td>
+		<td>ACM Knowledge Discovery and Data Mining</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/kdd/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ICDE</td>
+		<td>IEEE International Conference on Data Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icde/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>SIGIR</td>
+		<td>International Conference on Research on Development in Information Retrieval</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sigir/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>VLDB</td>
+		<td>International Conference on Very Large Data Bases</td>
+		<td>Morgan Kaufmann/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/vldb/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2235" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CIKM</td>
+		<td>ACM International Conference on Information and Knowledge Management</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cikm/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>WSDM</td>
+		<td>ACM International Conference on Web Search and Data Mining</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/wsdm/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>PODS</td>
+		<td>ACM Symposium on Principles of Database Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/pods/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>DASFAA</td>
+		<td>Database Systems for Advanced Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/dasfaa/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ECML-PKDD</td>
+		<td>European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ecml/ http://dblp.uni-trier.de/db/conf/pkdd/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ISWC</td>
+		<td>IEEE International Semantic Web Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/semweb/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ICDM</td>
+		<td>International Conference on Data Mining</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icdm/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ICDT</td>
+		<td>International Conference on Database Theory</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icdt/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>EDBT</td>
+		<td>International Conference on Extending DB Technology</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/edbt/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>CIDR</td>
+		<td>International Conference on Innovative Data Systems Research</td>
+		<td>Online Proceeding</td>
+		<td>http://dblp.uni-trier.de/db/conf/cidr/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>SDM</td>
+		<td>Mining SIAM International Conference on Data</td>
+		<td>SIAM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sdm/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2238" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>APWeb</td>
+		<td>Asia Pacific Web Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/apweb/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>DEXA</td>
+		<td>Database and Expert System Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/dexa/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ECIR</td>
+		<td>European Conference on IR Research</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ecir/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>ESWC</td>
+		<td>Extended Semantic Web Conference</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/esws/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>WebDB</td>
+		<td>International ACM Workshop on Web and Databases</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/webdb/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ER</td>
+		<td>International Conference on Conceptual Modeling</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/er/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>MDM</td>
+		<td>International Conference on Mobile Data Management</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/mdm/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>SSDBM</td>
+		<td>International Conference on Scientific and Statistical DB Management</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ssdbm/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>WAIM</td>
+		<td>International Conference on Web Age Information Management</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/waim/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>SSTD</td>
+		<td>International Symposium on Spatial and Temporal Databases</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ssd/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>PAKDD</td>
+		<td>Pacific-Asia Conference on Knowledge Discovery and Data Mining</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pakdd/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>WISE</td>
+		<td>Web Information Systems Engineering</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/wise/</td>
+	</tr>
+</tbody></table><h2><a name="计算机科学理论" class="md-header-anchor"></a><span>计算机科学理论</span></h2><h3><a name="中国计算机学会推荐国际学术期刊计算机科学理论）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（计算机科学理论）</span></h3><h4><a name="a-类-n2243" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TIT</td>
+		<td>IEEE Transactions on Information Theory</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tit/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>IANDC</td>
+		<td>Information and Computation</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/iandc/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>SICOMP</td>
+		<td>SIAM Journal on Computing</td>
+		<td>SIAM</td>
+		<td>http://dblp.uni-trier.de/db/journals/siamcomp/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2246" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TALG</td>
+		<td>ACM Transactions on Algorithms</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/talg/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TOCL</td>
+		<td>ACM Transactions on Computational Logic</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tocl/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TOMS</td>
+		<td>ACM Transactions on Mathematical Software</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/toms/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>Algorithmica</td>
+		<td>Algorithmica</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/algorithmica/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CC</td>
+		<td>Computational Complexity</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/cc/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>FAC</td>
+		<td>Formal Aspects of Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/fac/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>FMSD</td>
+		<td>Formal Methods in System Design</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/fmsd/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>INFORMS</td>
+		<td>INFORMS Journal on Computing</td>
+		<td>INFORMS</td>
+		<td>http://dblp.uni-trier.de/db/journals/informs/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>JCSS</td>
+		<td>Journal of Computer and System Sciences</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jcss/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>JGO</td>
+		<td>Journal of Global Optimization</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/jgo/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>JSC</td>
+		<td>Journal of Symbolic Computation</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jsc/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>MSCS</td>
+		<td>Mathematical Structures in Computer Science</td>
+		<td>Cambridge University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/mscs/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>TCS</td>
+		<td>Theoretical Computer Science</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcs/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2249" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ACTA</td>
+		<td>Acta Informatica</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/acta/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>APAL</td>
+		<td>Annals of Pure and Applied Logic</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/apal/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>DAM</td>
+		<td>Discrete Applied Mathematics</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/dam/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>FUIN</td>
+		<td>Fundamenta Informaticae</td>
+		<td>IOS Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/fuin/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>LISP</td>
+		<td>Higher-Order and Symbolic Computation</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/lisp/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>IPL</td>
+		<td>Information Processing Letters</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ipl/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>JCOMPLEXITY</td>
+		<td>Journal of Complexity</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jc/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>LOGCOM</td>
+		<td>Journal of Logic and Computation</td>
+		<td>Oxford University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/logcom/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>JSL</td>
+		<td>Journal of Symbolic Logic</td>
+		<td>Association for Symbolic Logic</td>
+		<td>http://dblp.uni-trier.de/db/journals/jsyml/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>LMCS</td>
+		<td>Logical Methods in Computer Science</td>
+		<td>LMCS</td>
+		<td>http://dblp.uni-trier.de/db/journals/lmcs/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>SIDMA</td>
+		<td>SIAM Journal on Discrete Mathematics</td>
+		<td>SIAM</td>
+		<td>http://dblp.uni-trier.de/db/journals/siamdm/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td></td>
+		<td>Theory of Computing Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/mst/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议计算机科学理论）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（计算机科学理论）</span></h3><h4><a name="a-类-n2253" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>STOC</td>
+		<td>ACM Symposium on the Theory of Computing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/stoc/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SODA</td>
+		<td>ACM-SIAM Symposium on Discrete Algorithms</td>
+		<td>SIAM</td>
+		<td>http://dblp.uni-trier.de/db/conf/soda/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>CAV</td>
+		<td>Computer Aided Verification</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/cav/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>FOCS</td>
+		<td>IEEE Annual Symposium on Foundations of Computer Science</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/focs/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>LICS</td>
+		<td>IEEE Symposium on Logic in Computer Science</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/lics/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2256" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>SoCG</td>
+		<td>ACM Symposium on Computational Geometry</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/compgeom/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ESA</td>
+		<td>European Symposium on Algorithms</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/esa/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>CCC</td>
+		<td>IEEE Conference on Computational Complexity</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/coco/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>ICALP</td>
+		<td>International Colloquium on Automata, Languages and Programming</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icalp/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CADE/IJCAR</td>
+		<td>International Conference on Automated Automated Reasoning Deduction/International Joint Conference on</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/cade/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>CONCUR</td>
+		<td>International Conference on Concurrency Theory</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/concur/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>HSCC</td>
+		<td>International Conference on Hybrid Systems: Computation and Control</td>
+		<td>Springer and ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/hybrid/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>SAT</td>
+		<td>Theory and Applications of Satisfiability Testing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/sat/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2259" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CSL</td>
+		<td>Computer Science Logic</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/csl/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>FMCAD</td>
+		<td>Formal Methods in Computer-Aided Design</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/fmcad/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>FSTTCS</td>
+		<td>Foundations of Software Technology and Theoretical Computer Science</td>
+		<td>Indian Association for Research in Computing Science</td>
+		<td>http://dblp.uni-trier.de/db/conf/fsttcs/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>DSAA</td>
+		<td>IEEE International Conference on Data Science and Advanced Analytics</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/dsaa/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ICTAC</td>
+		<td>International Colloquium on Theoretical Aspects of Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ictac/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>IPCO</td>
+		<td>International Conference on Integer Programming and Combinatorial Optimization</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ipco/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>RTA</td>
+		<td>International Conference on Rewriting Techniques and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/rta/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ISAAC</td>
+		<td>International Symposium on Algorithms and Computation</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/isaac/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>MFCS</td>
+		<td>Mathematical Foundations of Computer Science</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/mfcs/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>STACS</td>
+		<td>Symposium on Theoretical Aspects of Computer Science</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/stacs/</td>
+	</tr>
+</tbody></table><h2><a name="计算机图形学与多媒体" class="md-header-anchor"></a><span>计算机图形学与多媒体</span></h2><h3><a name="中国计算机学会推荐国际学术期刊计算机图形学与多媒体）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（计算机图形学与多媒体）</span></h3><h4><a name="a-类-n2264" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOG</td>
+		<td>ACM Transactions on Graphics</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tog/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TIP</td>
+		<td>IEEE Transactions on Image Processing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tip/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>TVCG</td>
+		<td>IEEE Transactions on Visualization and Computer Graphics</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tvcg/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2267" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOMCCAP</td>
+		<td>ACM Transactions on Multimedia Computing, Communications and Application</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tomccap/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CAGD</td>
+		<td>Computer Aided Geometric Design</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cagd/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>CGF</td>
+		<td>Computer Graphics Forum</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/cgf/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>CAD</td>
+		<td>Computer-Aided Design</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cad/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>GM</td>
+		<td>Graphical Models</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cvgip/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>TCSVT</td>
+		<td>IEEE Transactions on Circuits and Systems for Video Technology</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcsv/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>TMM</td>
+		<td>IEEE Transactions on Multimedia</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tmm/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>JASA</td>
+		<td>Journal of The Acoustical Society of America</td>
+		<td>AIP</td>
+		<td>http://scitation.aip.org/content/asa/journal/jasa</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>SIIMS</td>
+		<td>SIAM Journal on Imaging Sciences</td>
+		<td>SIAM</td>
+		<td>http://dblp.uni-trier.de/db/journals/siamis/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>Speech Com</td>
+		<td>Speech Communication</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/speech/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2270" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CGTA</td>
+		<td>Computational Geometry: Theory and Applications</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/comgeo/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CAVW</td>
+		<td>Computer Animation and Virtual Worlds</td>
+		<td>Wiley</td>
+		<td>http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1546 -427X</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>C&amp;G</td>
+		<td>Computers &amp; Graphics</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cg/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>DCG</td>
+		<td>Discrete &amp; Computational Geometry</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/dcg/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>SPL</td>
+		<td>IEEE Signal Processing Letters</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/spl/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>IET-IPR</td>
+		<td>IET Image Processing</td>
+		<td>IET</td>
+		<td>http://dblp.uni-trier.de/db/journals/iet-ipr/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>JVCIR</td>
+		<td>Journal of Visual Communication and Image Representation</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/jvcir/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>MS</td>
+		<td>Multimedia Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/mms/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>MTA</td>
+		<td>Multimedia Tools and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/mta/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td> </td>
+		<td>Signal Processing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/sigpro/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>SPIC</td>
+		<td>Signal Processing: Image Communication</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/spic/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>TVC</td>
+		<td>The Visual Computer</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/vc/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议计算机图形学与多媒体）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（计算机图形学与多媒体）</span></h3><h4><a name="a-类-n2274" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ACM MM</td>
+		<td>ACM International Conference on Multimedia</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mm/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SIGGRAPH</td>
+		<td>ACM SIGGRAPH Annual Conference</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/siggraph/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>VR</td>
+		<td>IEEE Virtual Reality</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/vr/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IEEE VIS</td>
+		<td>IEEE Visualization Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/visualization/index.html</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2277" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>ICMR</td>
+		<td>ACM SIGMM International Conference on Multimedia Retrieval</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mir/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>SI3D</td>
+		<td>ACM Symposium on Interactive 3D Graphics</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/si3d/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>SCA</td>
+		<td>ACM/Eurographics Symposium on Computer Animation</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/sca/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>DCC</td>
+		<td>Data Compression Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/dcc/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>EG</td>
+		<td>Eurographics</td>
+		<td>Wiley/ Blackwell</td>
+		<td>http://dblp.uni-trier.de/db/conf/eurographics/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>EuroVis</td>
+		<td>Eurographics Conference on Visualization</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/vissym/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>SGP</td>
+		<td>Eurographics Symposium on Geometry Processing</td>
+		<td>Wiley/Blackwell</td>
+		<td>http://dblp.uni-trier.de/db/conf/sgp/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>EGSR</td>
+		<td>Eurographics Symposium on Rendering</td>
+		<td>Wiley/Blackwell</td>
+		<td>http://dblp.uni-trier.de/db/conf/rt/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>ICASSP</td>
+		<td>IEEE International Conference on Acoustics, Speech and SP</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icassp/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>ICME</td>
+		<td>IEEE International Conference on Multimedia &amp; Expo</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icmcs/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>ISMAR</td>
+		<td>International Symposium on Mixed and Augmented Reality</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ismar/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>PG</td>
+		<td>Pacific Graphics: The Pacific Conference on Computer Graphics and Applications</td>
+		<td>Wiley/Blackwell</td>
+		<td>http://dblp.uni-trier.de/db/conf/pg/index.html</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>13</td>
+		<td>SPM</td>
+		<td>Symposium on Solid and Physical Modeling</td>
+		<td>SMA/Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/conf/sma/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2282" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议名称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td></td>
+		<td>ACM Symposium on Virtual Reality Software and Technology</td>
+		<td>ACM</td>
+		<td>http://dblp2.uni-trier.de/db/conf/vrst/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CASA</td>
+		<td>Computer Animation and Social Agents</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/conf/ca/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>CGI</td>
+		<td>Computer Graphics International</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/cgi/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>INTERSPEECH</td>
+		<td>Conference of the International Speech Communication Association</td>
+		<td></td>
+		<td>http://dblp.uni-trier.de/db/conf/interspeech/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>GMP</td>
+		<td>Geometric Modeling and Processing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/conf/gmp/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>PacificVis</td>
+		<td>IEEE Pacific Visualization Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/apvis/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>3DV</td>
+		<td>International Conference on 3D Vision</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/3dim/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>CAD/Graphics</td>
+		<td>International Conference on Computer-Aided Design and Computer Graphics</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/cadgraphics/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>ICIP</td>
+		<td>International Conference on Image Processing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icip/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>MMM</td>
+		<td>International Conference on Multimedia Modeling</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/mmm/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>PCM</td>
+		<td>Pacific-Rim Conference on Multimedia</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pcm/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>SMI</td>
+		<td>Shape Modeling International</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/smi/</td>
+	</tr>
+</tbody></table><h2><a name="人工智能" class="md-header-anchor"></a><span>人工智能</span></h2><h3><a name="中国计算机学会推荐国际学术期刊人工智能）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（人工智能）</span></h3><h4><a name="a-类-n2287" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>AI</td>
+		<td>Artificial Intelligence</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ai/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TPAMI</td>
+		<td>IEEE Trans on Pattern Analysis and Machine Intelligence</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/pami/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>IJCV</td>
+		<td>International Journal of Computer Vision</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijcv/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>JMLR</td>
+		<td>Journal of Machine Learning Research</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/jmlr/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2290" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TAP</td>
+		<td>ACM Transactions on Applied Perception</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tap/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>TSLP</td>
+		<td>ACM Transactions on Speech and Language Processing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tslp/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>AAMAS</td>
+		<td>Autonomous Agents and Multi-Agent Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/aamas/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td></td>
+		<td>Computational Linguistics</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/coling/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>CVIU</td>
+		<td>Computer Vision and Image Understanding</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/cviu/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>DKE</td>
+		<td>Data and Knowledge Engineering</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/dke/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>Evolutionary Computation</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/ec/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>TAC</td>
+		<td>IEEE Transactions on Affective Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/taffco/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>TASLP</td>
+		<td>IEEE Transactions on Audio, Speech, and Language Processing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/taslp/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td></td>
+		<td>IEEE Transactions on Cybernetics</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcyb/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>TEC</td>
+		<td>IEEE Transactions on Evolutionary Computation</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tec/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>TFS</td>
+		<td>IEEE Transactions on Fuzzy Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tfs/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>TNNLS</td>
+		<td>IEEE Transactions on Neural Networks and learning systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tnn/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>IJAR</td>
+		<td>International Journal of Approximate Reasoning</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijar/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>15</td>
+		<td>JAIR</td>
+		<td>Journal of Artificial Intelligence Research</td>
+		<td>AAAI</td>
+		<td>http://dblp.uni-trier.de/db/journals/jair/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td></td>
+		<td>Journal of Automated Reasoning</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/jar/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>JSLHR</td>
+		<td>Journal of Speech, Language, and Hearing Research</td>
+		<td>American Speech- Language Hearing Association</td>
+		<td>http://jslhr.pubs.asha.org/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td></td>
+		<td>Machine Learning</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ml/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td></td>
+		<td>Neural Computation</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/neco/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td></td>
+		<td>Neural Networks</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/nn/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>PR</td>
+		<td>Pattern Recognition</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/conf/par/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2295" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TALLIP</td>
+		<td>ACM Transactions on Asian and Low- Resource Language Information Processing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/talip/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td></td>
+		<td>Applied Intelligence</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/apin/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>AIM</td>
+		<td>Artificial Intelligence in Medicine</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/artmed/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td></td>
+		<td>Artificial Life</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/alife/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td></td>
+		<td>Computational Intelligence</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/ci/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td></td>
+		<td>Computer Speech and Language</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/csl/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>Connection Science</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/connection/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>DSS</td>
+		<td>Decision Support Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/dss/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>EAAI</td>
+		<td>Engineering Applications of Artificial Intelligence</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/eaai/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td></td>
+		<td>Expert Systems</td>
+		<td>Blackwell/Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/es/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>ESWA</td>
+		<td>Expert Systems with Applications</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/eswa/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td></td>
+		<td>Fuzzy Sets and Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/fss/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>TG</td>
+		<td>IEEE Transactions on Games</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tciaig/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>IET-CVI</td>
+		<td>IET Computer Vision</td>
+		<td>IET</td>
+		<td>http://digital-library.theiet.org/content/journals/iet-cvi</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td></td>
+		<td>IET Signal Processing</td>
+		<td>IET</td>
+		<td>* http://digital-library.theiet.org/content/journals/iet-spr</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>IVC</td>
+		<td>Image and Vision Computing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ivc/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>17</td>
+		<td>IDA</td>
+		<td>Intelligent Data Analysis</td>
+		<td>IOS Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/ida/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>IJCIA</td>
+		<td>International Journal of Computational Intelligence and Applications</td>
+		<td>World Scientific</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijcia/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>IJIS</td>
+		<td>International Journal of Intelligent Systems</td>
+		<td>Wiley</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijis/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>IJNS</td>
+		<td>International Journal of Neural Systems</td>
+		<td>World Scientific</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijns/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>IJPRAI</td>
+		<td>International Journal of Pattern Recognition and Artificial Intelligence</td>
+		<td>World Scientific</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijprai/</td>
+	</tr>
+	<tr align="center">
+		<td>22</td>
+		<td>IJUFKS</td>
+		<td>International Journal of Uncertainty, Fuzziness and Knowledge-Based System</td>
+		<td>World Scientific</td>
+		<td>https://dblp.uni-trier.de/db/journals/ijufks/</td>
+	</tr>
+	<tr align="center">
+		<td>23</td>
+		<td>IJDAR</td>
+		<td>International Journal on Document Analysis and Recognition</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijdar/</td>
+	</tr>
+	<tr align="center">
+		<td>24</td>
+		<td>JETAI</td>
+		<td>Journal of Experimental and Theoretical Artificial Intelligence</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/jetai/</td>
+	</tr>
+	<tr align="center">
+		<td>25</td>
+		<td>KBS</td>
+		<td>Knowledge-Based Systems</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/kbs/</td>
+	</tr>
+	<tr align="center">
+		<td>26</td>
+		<td></td>
+		<td>Machine Translation</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/mt/</td>
+	</tr>
+	<tr align="center">
+		<td>27</td>
+		<td></td>
+		<td>Machine Vision and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/mva/</td>
+	</tr>
+	<tr align="center">
+		<td>28</td>
+		<td></td>
+		<td>Natural Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/nc/</td>
+	</tr>
+	<tr align="center">
+		<td>29</td>
+		<td>NLE</td>
+		<td>Natural Language Engineering</td>
+		<td>Cambridge University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/nle/</td>
+	</tr>
+	<tr align="center">
+		<td>30</td>
+		<td>NCA</td>
+		<td>Neural Computing &amp; Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/nca/</td>
+	</tr>
+	<tr align="center">
+		<td>31</td>
+		<td>NPL</td>
+		<td>Neural Processing Letters</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/npl/</td>
+	</tr>
+	<tr align="center">
+		<td>32</td>
+		<td></td>
+		<td>Neurocomputing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijon/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>33</td>
+		<td>PAA</td>
+		<td>Pattern Analysis and Applications</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/paa/</td>
+	</tr>
+	<tr align="center">
+		<td>34</td>
+		<td>PRL</td>
+		<td>Pattern Recognition Letters</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/prl/</td>
+	</tr>
+	<tr align="center">
+		<td>35</td>
+		<td></td>
+		<td>Soft Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/soco/</td>
+	</tr>
+	<tr align="center">
+		<td>36</td>
+		<td>WI</td>
+		<td>Web Intelligence</td>
+		<td>IOS Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/wias/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议人工智能）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（人工智能）</span></h3><h4><a name="a-类-n2303" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>AAAI</td>
+		<td>AAAI Conference on Artificial Intelligence</td>
+		<td>AAAI</td>
+		<td>http://dblp.uni-trier.de/db/conf/aaai/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>NeurIPS</td>
+		<td>Annual Conference on Neural Information Processing Systems</td>
+		<td>MIT Press</td>
+		<td>http://dblp.uni-trier.de/db/conf/nips/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ACL</td>
+		<td>Annual Meeting of the Linguistics Association for Computational</td>
+		<td>ACL</td>
+		<td>http://dblp.uni-trier.de/db/conf/acl/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>CVPR</td>
+		<td>IEEE Conference on Computer Vision and Pattern Recognition</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/cvpr/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ICCV</td>
+		<td>International Conference on Computer Vision</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iccv/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICML</td>
+		<td>International Conference on Machine Learning</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/icml/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>IJCAI</td>
+		<td>International Joint Conference on Artificial Intelligence</td>
+		<td>Morgan Kaufmann</td>
+		<td>http://dblp.uni-trier.de/db/conf/ijcai/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2306" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>COLT</td>
+		<td>Annual Conference on Computational Learning Theory</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/colt/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>EMNLP</td>
+		<td>Methods in Natural Language Conference on Empirical Processing</td>
+		<td>ACL</td>
+		<td>http://dblp.uni-trier.de/db/conf/emnlp/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ECAI</td>
+		<td>European Conference on Artificial Intelligence</td>
+		<td>IOS Press</td>
+		<td>http://dblp.uni-trier.de/db/conf/ecai/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>ECCV</td>
+		<td>European Conference on Computer Vision</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/eccv/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ICRA</td>
+		<td>IEEE International Conference on Robotics and Automation</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icra/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>ICAPS</td>
+		<td>International Conference on Scheduling Automated Planning and</td>
+		<td>AAAI</td>
+		<td>http://dblp.uni-trier.de/db/conf/aips/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ICCBR</td>
+		<td>International Conference on Development Case-Based Reasoning and</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/iccbr/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>COLING</td>
+		<td>International Conference on Computational Linguistics</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/coling/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>9</td>
+		<td>KR</td>
+		<td>Principles of Knowledge International Conference on Representation and Reasoning</td>
+		<td>Morgan Kaufmann</td>
+		<td>http://dblp.uni-trier.de/db/conf/kr/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>UAI</td>
+		<td>Uncertainty in Artificial International Conference on Intelligence</td>
+		<td>AUAI</td>
+		<td>http://dblp.uni-trier.de/db/conf/uai/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>AAMAS</td>
+		<td>Autonomous Agents and Multi- International Joint Conference on agent Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/atal/index.html</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>PPSN</td>
+		<td>Parallel Problem Solving from Nature</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ppsn/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2311" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>AISTATS</td>
+		<td>Artificial Intelligence and Statistics</td>
+		<td>JMLR</td>
+		<td>http://dblp.uni-trier.de/db/conf/aistats/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ACCV</td>
+		<td>Asian Conference on Computer Vision</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/accv/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ACML</td>
+		<td>Asian Conference on Machine Learning</td>
+		<td>JMLR</td>
+		<td>http://dblp.uni-trier.de/db/conf/acml/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>BMVC</td>
+		<td>British Machine Vision Conference</td>
+		<td>British Machine Vision Association</td>
+		<td>http://dblp.uni-trier.de/db/conf/bmvc/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>NLPCC</td>
+		<td>Natural Language Processing and CCF International Conference on Chinese Computing</td>
+		<td>Springer</td>
+		<td>https://dblp.uni-trier.de/db/conf/nlpcc/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>CoNLL</td>
+		<td>Conference on Computational Natural Language Learning</td>
+		<td>Association for Computational Linguistics</td>
+		<td>http://dblp.uni-trier.de/db/conf/conll</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>GECCO</td>
+		<td>Genetic and Evolutionary Computation Conference</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/gecco/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>ICTAI</td>
+		<td>IEEE International Conference on Tools with Artificial Intelligence</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ictai/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>IROS</td>
+		<td>IEEE\RSJ International Conference on Intelligent Robots and Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/iros/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>ALT</td>
+		<td>International Conference on Algorithmic Learning Theory</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/alt/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>ICANN</td>
+		<td>International Conference on Artificial Neural Networks</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/icann/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>FG</td>
+		<td>International Conference on Automatic Face and Gesture Recognition</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/fgr/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>13</td>
+		<td>ICDAR</td>
+		<td>International Conference on Document Analysis and Recognition</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icdar/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td>ILP</td>
+		<td>International Conference on Inductive Logic Programming</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ilp/</td>
+	</tr>
+	<tr align="center">
+		<td>15</td>
+		<td>KSEM</td>
+		<td>International conference on Knowledge Science, Engineering and Management</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ksem/</td>
+	</tr>
+	<tr align="center">
+		<td>16</td>
+		<td>ICONIP</td>
+		<td>International Conference on Neural Information Processing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/iconip/</td>
+	</tr>
+	<tr align="center">
+		<td>17</td>
+		<td>ICPR</td>
+		<td>International Conference on Pattern Recognition</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icpr/</td>
+	</tr>
+	<tr align="center">
+		<td>18</td>
+		<td>ICB</td>
+		<td>International Joint Conference on Biometrics</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/icb/</td>
+	</tr>
+	<tr align="center">
+		<td>19</td>
+		<td>IJCNN</td>
+		<td>International Joint Conference on Neural Networks</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/ijcnn/</td>
+	</tr>
+	<tr align="center">
+		<td>20</td>
+		<td>PRICAI</td>
+		<td>Pacific Rim International Conference on Artificial Intelligence</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/pricai/</td>
+	</tr>
+	<tr align="center">
+		<td>21</td>
+		<td>NAACL</td>
+		<td>The Annual Conference of the North for Computational Linguistics American Chapter of the Association</td>
+		<td>NAACL</td>
+		<td>http://dblp.uni-trier.de/db/conf/naacl/</td>
+	</tr>
+</tbody></table><h2><a name="人机交互与普适计算" class="md-header-anchor"></a><span>人机交互与普适计算</span></h2><h3><a name="中国计算机学会推荐国际学术刊物人机交互与普适计算）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术刊物（人机交互与普适计算）</span></h3><h4><a name="a-类-n2318" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>TOCHI</td>
+		<td>ACM Transactions on Computer-Human Interaction</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tochi/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>IJHCS</td>
+		<td>International Journal of Human Computer Studies</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijmms/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2321" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CSCW</td>
+		<td>Computer Supported Cooperative Work</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/cscw/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>HCI</td>
+		<td>Human Computer Interaction</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/hhci/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td></td>
+		<td>IEEE Transactions on Human-Machine Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/thms/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>IWC</td>
+		<td>Interacting with Computers</td>
+		<td>Oxford University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/iwc/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>IJHCI</td>
+		<td>International Journal of Human-Computer Interaction</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/ijhci/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>UMUAI</td>
+		<td>User Modeling and User-Adapted Interaction</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/umuai/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2324" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>BIT</td>
+		<td>Behaviour &amp; Information Technology</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/behaviourIT/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>PUC</td>
+		<td>Personal and Ubiquitous Computing</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/puc/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>PMC</td>
+		<td>Pervasive and Mobile Computing</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/percom/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议人机交互与普适计算）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（人机交互与普适计算）</span></h3><h4><a name="a-类-n2328" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CSCW</td>
+		<td>ACM Conference on Computer Supported Cooperative Work and Social Computing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cscw</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>CHI</td>
+		<td>ACM Conference on Human Factors in Computing Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/chi</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>UbiComp</td>
+		<td>ACM International Conference on Ubiquitous Computing</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/huc/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2331" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>GROUP</td>
+		<td>ACM Conference on Supporting Group Work</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/group/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>IUI</td>
+		<td>Interfaces ACM International Conference on Intelligent User</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/iui/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ITS</td>
+		<td>ACM International Conference on Interactive Tabletops and Surfaces</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/tabletop/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>UIST</td>
+		<td>ACM Symposium on User Interface Software and Technology</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/uist/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>ECSCW</td>
+		<td>European Conference on Computer Supported Cooperative Work</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/ecscw/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>PERCOM</td>
+		<td>IEEE International Conference on Pervasive Computing and Communications</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/percom/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>MobileHCI</td>
+		<td>International Conference on Human Computer Interaction with Mobile Devices and Services</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/mhci/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2334" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>DIS</td>
+		<td>ACM Conference on Designing Interactive Systems</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/ACMdis</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>ICMI</td>
+		<td>ACM International Conference on Multimodal Interaction</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/icmi/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>ASSETS</td>
+		<td>ACM SIGACCESS Conference on Computers and Accessibility</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/assets</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>GI</td>
+		<td>Graphics Interface conference</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/graphicsinterface/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>UIC</td>
+		<td>IEEE International Conference on Ubiquitous Intelligence and Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/uic/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td></td>
+		<td>IEEE World Haptics Conference</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/haptics/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>INTERACT</td>
+		<td>IFIP TC13 Conference on Human-Computer Interaction</td>
+		<td>IFIP</td>
+		<td>http://dblp.uni-trier.de/db/conf/interact/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>IDC</td>
+		<td>Interaction Design and Children</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/acmidc/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>CollaborateCom</td>
+		<td>International Conference on Collaborative Computing: Networking, Applications and Worksharing</td>
+		<td>Springer</td>
+		<td>http://collaboratecom.org</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>CSCWD</td>
+		<td>International Conference on Computer Supported Cooperative Work in Design</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/cscwd/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>CoopIS</td>
+		<td>International Conference on Cooperative Information Systems</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/coopis/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td>MobiQuitous</td>
+		<td>International Conference on Mobile and Ubiquitous Systems: Computing, Networking and Services</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/mobiquitous/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td>AVI</td>
+		<td>International Working Conference on Advanced Visual Interfaces</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/avi/</td>
+	</tr>
+</tbody></table><h2><a name="交叉综合新兴" class="md-header-anchor"></a><span>交叉/综合/新兴</span></h2><h3><a name="中国计算机学会推荐国际学术期刊交叉综合新兴）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术期刊（交叉/综合/新兴）</span></h3><h4><a name="a-类-n2339" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>JACM</td>
+		<td>Journal of the ACM</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/jacm/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>Proc. IEEE</td>
+		<td>Proceedings of the IEEE</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/pieee/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2342" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td></td>
+		<td>Bioinformatics</td>
+		<td>Oxford University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/bioinformatics/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td></td>
+		<td>Briefings in Bioinformatics</td>
+		<td>Oxford University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/bib/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>Cognition</td>
+		<td>Cognition：International Journal of Cognitive Science</td>
+		<td>Elsevier</td>
+		<td>http://www.journals.elsevier.com/cognition/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>TASAE</td>
+		<td>IEEE Transactions on Automation Science and Engineering</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tase/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>TGARS</td>
+		<td>IEEE Transactions on Geoscience and Remote Sensing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tgrs/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>TITS</td>
+		<td>IEEE Transactions on Intelligent Transportation Systems</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tits/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>TMI</td>
+		<td>IEEE Transactions on Medical Imaging</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/tmi/</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>TR</td>
+		<td>IEEE Transactions on Robotics</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/trob/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td>TCBB</td>
+		<td>IEEE-ACM Transactions on Computational Biology and Bioinformatics</td>
+		<td>IEEE/ACM</td>
+		<td>http://dblp.uni-trier.de/db/journals/tcbb/</td>
+	</tr>
+	<tr align="center">
+		<td>10</td>
+		<td>JCST</td>
+		<td>Journal of Computer Science and Technology</td>
+		<td>SCIENCE PRESS/Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/jcst/</td>
+	</tr>
+	<tr align="center">
+		<td>11</td>
+		<td>JAMIA</td>
+		<td>Journal of the American Medical Informatics Association</td>
+		<td>BMJ Journals</td>
+		<td>http://dblp.uni-trier.de/db/journals/jamia/</td>
+	</tr>
+	<tr align="center">
+		<td>12</td>
+		<td></td>
+		<td>PLOS Computational Biology</td>
+		<td>Public Library of Science</td>
+		<td>http://dblp.uni-trier.de/db/journals/ploscb/</td>
+	</tr>
+	<tr align="center">
+		<td>13</td>
+		<td></td>
+		<td>Science China Information Sciences</td>
+		<td>Science in China Press/Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/chinaf/</td>
+	</tr>
+	<tr align="center">
+		<td>14</td>
+		<td></td>
+		<td>The Computer Journal</td>
+		<td>Oxford University Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/cj/</td>
+	</tr>
+</tbody></table><table align="center">
+	<tbody><tr align="center">
+		<td>15</td>
+		<td></td>
+		<td>World Wide Web Journal</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/journals/wwwj/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2347" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>刊物简称</td>
+		<td>刊物全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td></td>
+		<td>BMC Bioinformatics</td>
+		<td>BioMed Central</td>
+		<td>http://dblp.uni-trier.de/db/journals/bmcbi/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td></td>
+		<td>Cybernetics and Systems</td>
+		<td>Taylor &amp; Francis</td>
+		<td>http://dblp.uni-trier.de/db/journals/cas/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>FCS</td>
+		<td>Frontiers of Computer Science</td>
+		<td>Higher Education Press</td>
+		<td>http://dblp.uni-trier.de/db/journals/fcsc/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td></td>
+		<td>IEEE Geoscience and Remote Sensing Letters</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/lgrs/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>JBHI</td>
+		<td>IEEE Journal of Biomedical and Health Informatics</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/journals/titb/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>TBD</td>
+		<td>IEEE Transactions on Big Data</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/journals/tbd/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td></td>
+		<td>IET Intelligent Transport Systems</td>
+		<td>IET</td>
+		<td>http://digital-library.theiet.org/content/journals/iet-its</td>
+	</tr>
+	<tr align="center">
+		<td>8</td>
+		<td>JBI</td>
+		<td>Journal of Biomedical Informatics</td>
+		<td>Elsevier</td>
+		<td>https://dblp.uni-trier.de/db/journals/jbi/</td>
+	</tr>
+	<tr align="center">
+		<td>9</td>
+		<td></td>
+		<td>Medical Image Analysis</td>
+		<td>Elsevier</td>
+		<td>http://dblp.uni-trier.de/db/journals/mia/</td>
+	</tr>
+</tbody></table><h3><a name="中国计算机学会推荐国际学术会议交叉综合新兴）" class="md-header-anchor"></a><span>中国计算机学会推荐国际学术会议（交叉/综合/新兴）</span></h3><h4><a name="a-类-n2351" class="md-header-anchor"></a><span>A 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网站</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>WWW</td>
+		<td>International World Wide Web Conferences</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/www/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>RTSS</td>
+		<td>Real-Time Systems Symposium</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/rtss/</td>
+	</tr>
+</tbody></table><h4><a name="b-类-n2354" class="md-header-anchor"></a><span>B 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>CogSci</td>
+		<td>Cognitive Science Society Annual Conference</td>
+		<td>Psychology Press</td>
+		<td>https://dblp.uni-trier.de/db/conf/cogsci/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>BIBM</td>
+		<td>IEEE International Conference on Bioinformatics and Biomedicine</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/bibm/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td>EMSOFT</td>
+		<td>International Conference on Embedded Software</td>
+		<td>ACM/IEEE/IFIP</td>
+		<td>http://dblp.uni-trier.de/db/conf/emsoft/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td>ISMB</td>
+		<td>International conference on Intelligent Systems for Molecular Biology</td>
+		<td>Oxford Journals</td>
+		<td>http://www.iscb.org/about-ismb</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>RECOMB</td>
+		<td>International Conference on Research in Computational Molecular Biology</td>
+		<td>Springer</td>
+		<td>http://dblp.uni-trier.de/db/conf/recomb/</td>
+	</tr>
+</tbody></table><h4><a name="c-类-n2357" class="md-header-anchor"></a><span>C 类</span></h4><table align="center">
+	<tbody><tr align="center">
+		<td>序号</td>
+		<td>会议简称</td>
+		<td>会议全称</td>
+		<td>出版社</td>
+		<td>网址</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td>AMIA</td>
+		<td>American Medical Informatics Association Annual Symposium</td>
+		<td>AMIA</td>
+		<td>http://dblp.uni-trier.de/db/conf/amia/</td>
+	</tr>
+	<tr align="center">
+		<td>2</td>
+		<td>APBC</td>
+		<td>Asia Pacific Bioinformatics Conference</td>
+		<td>BioMed Central</td>
+		<td>http://dblp.uni-trier.de/db/conf/apbc/</td>
+	</tr>
+	<tr align="center">
+		<td>3</td>
+		<td></td>
+		<td>IEEE International Conference on Big Data</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/bigdataconf/</td>
+	</tr>
+	<tr align="center">
+		<td>4</td>
+		<td></td>
+		<td>IEEE International Conference on Cloud Computing</td>
+		<td>IEEE</td>
+		<td>http://dblp.uni-trier.de/db/conf/IEEEcloud/</td>
+	</tr>
+	<tr align="center">
+		<td>5</td>
+		<td>SMC</td>
+		<td>IEEE International Conference on Systems, Man, and Cybernetics</td>
+		<td>IEEE</td>
+		<td>https://dblp.uni-trier.de/db/conf/smc/</td>
+	</tr>
+	<tr align="center">
+		<td>6</td>
+		<td>COSIT</td>
+		<td>International Conference on Spatial Information Theory</td>
+		<td>ACM</td>
+		<td>http://dblp.uni-trier.de/db/conf/cosit/</td>
+	</tr>
+	<tr align="center">
+		<td>7</td>
+		<td>ISBRA</td>
+		<td>International Symposium on Bioinformatics Research and Applications</td>
+		<td>Springer</td>
+		<td>https://dblp.uni-trier.de/db/conf/isbra/</td>
+	</tr>
+</tbody></table><p>&nbsp;</p></div>
+</body>
+</html>
